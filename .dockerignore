@@ -1,0 +1,8 @@
+.git*
+target/
+
+*.lock
+*.md
+*.txt
+.dockerignore
+Dockerfile
