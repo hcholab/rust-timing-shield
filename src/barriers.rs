@@ -157,6 +157,7 @@
 #[inline(always)]
 pub fn optimization_barrier_u8(mut value: u8) -> u8 {
     unsafe {
+        #[cfg(not(target_arch = "wasm32"))]
         std::arch::asm!(
             // Rust requires us to use every register defined, so we use it inside of a comment.
             "/* optimization_barrier_u8 {unused} */",
@@ -167,6 +168,14 @@ pub fn optimization_barrier_u8(mut value: u8) -> u8 {
 
             // By guaranteeing more invariants we improve the compiler's ability to optimize.
             // Since the assembly block is a no-op, we easily uphold all of these invariants.
+            options(pure, nomem, nostack, preserves_flags)
+        );
+
+        // WebAssembly only supports local class
+        #[cfg(target_arch = "wasm32")]
+        std::arch::asm!(
+            "/* optimization_barrier_u8 {unused} */",
+            unused = inout(local) value,
             options(pure, nomem, nostack, preserves_flags)
         );
     }

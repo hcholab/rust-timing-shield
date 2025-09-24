@@ -21,6 +21,9 @@
 //! page](https://www.chosenplaintext.ca/open-source/rust-timing-shield/getting-started) for more
 //! information.
 
+#![feature(min_specialization)]
+#![cfg_attr(target_arch = "wasm32", feature(asm_experimental_arch))]
+
 #[cfg(test)]
 extern crate quickcheck;
 
