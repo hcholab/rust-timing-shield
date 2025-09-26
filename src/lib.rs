@@ -22,7 +22,6 @@
 //! information.
 
 #![cfg_attr(target_arch = "wasm32", feature(asm_experimental_arch))]
-
 #[cfg(test)]
 extern crate quickcheck;
 
